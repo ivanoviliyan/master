@@ -1,0 +1,85 @@
+/* Parent container for centering */
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  /* Login container styling */
+  .login-container {
+    margin-top: 250px;
+    display: flex;
+    row-gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-width: 400px; /* Optional: Max width for responsiveness */
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #e3f2fd; /* Optional: Background color */
+  }
+  
+  .login-container p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+  }
+  
+  .login-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  
+  input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+ .buttons-container{
+    display: flex;
+    padding-top: 25px;
+    justify-content: space-around;
+ }
+
+ button {
+    width: 100px;
+    height: 50px;
+    font-size: .9rem;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    color: white;
+ }
+
+ button:hover {
+    opacity: 0.85;
+ }
+
+ .btn-login {
+    background-color: #007bff;
+ }
+
+ .btn-singup {
+    background-color: #28a745;
+ }
