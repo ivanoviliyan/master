@@ -1,0 +1,10 @@
+db.projectDB.insertOne({username: "iliyan", password: "pass"})
+db.projectDB.insertOne({username: iliyan, password: pass})
+use projcetDB
+db.users.insertOne({ user: "[value]" })
+use projectDB
+db
+use projectDB
+db
+use taskManagerDB
+db

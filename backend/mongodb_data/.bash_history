@@ -1,0 +1,14 @@
+db
+exit
+mongop
+mongo
+exit
+mongosh
+exit
+mongosh
+monogsh
+exit
+mongosh
+exit
+mongosh
+exit
