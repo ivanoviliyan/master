@@ -1,5 +1,8 @@
-
-    font-family: "Bai Jamjuree", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  
+/* Parent container for centering */
+body,
+html {
+  font-family: "Bai Jamjuree", sans-serif;
+  height: 100%;
+  margin: 0;
+  background-color: rgb(212, 230, 230);
+}

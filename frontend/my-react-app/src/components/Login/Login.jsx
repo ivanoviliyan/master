@@ -48,7 +48,7 @@ const Login = () => {
           <div className="login-container">
             <p>Login</p>
             <div className="input-container">
-              <div className="row">
+              <div className="login-row">
                 <img src={emailImg} className="login-icon" alt="Email Icon" />
                 <input
                   type="email"
@@ -58,7 +58,7 @@ const Login = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="row">
+              <div className="login-row">
                 <img src={passwordImg} className="login-icon" alt="Password Icon" />
                 <input
                   type="password"
