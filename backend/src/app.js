@@ -1,14 +1,22 @@
 const express = require('express');
+const cors = require('cors');
 const companyRoutes = require('./routes/companyRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const userRoutes = require('./routes/userRoutes');
-const userLoginRoutes = require('./routes/userLoginRoutes')
+const userLoginRoutes = require('./routes/userLoginRoutes');
 
 const app = express();
 
-app.use(express.json());
+// Use CORS middleware
+app.use(cors({
+    origin: '*', // Allow all origins (for testing purposes only)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }));
+  
 
-// Apply middleman middleware to a specific route pattern
+// Middleware for parsing JSON
+app.use(express.json());
 
 // Register routes
 app.use('/companies', companyRoutes);

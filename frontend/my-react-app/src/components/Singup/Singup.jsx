@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Singup.css";
 import logoImg from "../Login/assets/logo-no-background.svg";
 
 const Singup = () => {
+  const navigate = useNavigate();
   const [company, setCompany] = useState({
     name: '',
     password: '',
@@ -56,6 +58,10 @@ const Singup = () => {
       console.error('Error sending company data:', error);
     }
   };
+
+  const handleCancel = () => {
+    navigate('/login');
+  }
 
   return (
     <>
@@ -141,7 +147,7 @@ const Singup = () => {
 
         <div className="buttons-container">
           <button className="singup" onClick={handleSubmit}>Sign up</button>
-          <button className="cancel">Cancel</button>
+          <button className="cancel" onClick={handleCancel}>Cancel</button>
         </div>
       </div>
     </>

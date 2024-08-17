@@ -16,7 +16,8 @@ const userLogin = async (req, res) => {
             return res.status(401).json({ message: "Wrong Password!" });
         }
 
-        return res.status(200).json({ message: "Login successfully!" });
+        return res.status(200).json({ id:validUser._id })
+    
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Error in login logic!" });
