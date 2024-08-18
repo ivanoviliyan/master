@@ -1,0 +1,32 @@
+.project-card{
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding: 10px 25px;
+    color:black;
+}
+
+.colored{
+    color:black;
+}
+
+.more-info{
+    display: flex;
+    justify-content: space-between;
+    align-items:baseceline;
+}
+
+.more-info h2{
+    padding-top: 15px;
+}
+
+.btn-details{
+    background-color: #FFC604;
+    width: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.new-page-png img {
+    width: 15px;
+}

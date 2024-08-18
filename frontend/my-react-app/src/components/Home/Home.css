@@ -1,0 +1,42 @@
+.user-container {
+    display: flex;
+    align-items: center; /* Align items vertically center */
+    padding: 0 20px; /* Optional: adds padding around the container */
+    gap: 30px;
+    background-color: #3D3839;
+    height: 140px;
+  }
+  
+  .btn-logout {
+    margin-right: auto; /* Push the button to the left */
+    margin-top: 0;
+    background-color:  #FFC604;
+    color:black;
+  }
+  .btn-options {
+    margin-left: auto; /* Push the button to the left */
+    margin-top: 0;
+    background-color:  #FFC604;
+    color:black;
+  }
+  
+  .user-info {
+    flex: 1; /* Allow the user-info to take up remaining space */
+    text-align: center; /* Center text inside user-info */
+    color: #FFC604;
+    font-weight: bold;
+  }
+  .user-info span {
+    color: white;
+  }
+
+.projects-grid{
+    padding: 1%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    color:white;
+    background-color: #3D3839;
+    gap:20px;
+}

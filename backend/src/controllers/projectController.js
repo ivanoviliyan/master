@@ -8,7 +8,7 @@ const getAllProjects = async (req, res) => {
     if (projects.length > 0) {
       return res
         .status(200)
-        .json({ data: projects, message: "Projects retrieved successfully!" });
+        .json(projects);
     }
 
     return res.status(404).json({ message: "No existing projects!" });
@@ -21,19 +21,19 @@ const getAllProjects = async (req, res) => {
 const getProjectById = async (req, res) => {
   try {
     const id = req.params.id;
-    const project = await Project.findById(id);
+
+    // Find project by ID and populate the teamMembers field
+    const project = await Project.findById(id)
+      .populate('teamMembers', 'name') // Populate teamMembers with their names
+      .exec();
 
     if (project) {
-      return res
-        .status(200)
-        .json({ data: project, message: "Project retrieved successfully!" });
+      return res.status(200).json(project);
     }
 
-    return res
-      .status(404)
-      .json({ message: `Project with ID ${id} does not exist!` });
+    return res.status(404).json({ message: `Project with ID ${id} does not exist!` });
   } catch (error) {
-    console.error(error);
+    console.error('Error retrieving project:', error);
     return res.status(500).json({ message: "Error retrieving project!" });
   }
 };
@@ -96,16 +96,18 @@ const getProjectsForUser = async (req, res) => {
   try {
     const id = req.params.id;
 
+    // Check if the user ID is valid
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid user ID" });
     }
 
     const userId = new mongoose.Types.ObjectId(id);
 
-    const projects = await Project.find({
-      teamMembers: userId,
-    });
+    // Find projects where the user is part of the teamMembers array
+    const projects = await Project.find({ teamMembers: userId })
+      .populate('teamMembers', 'name'); // Populate the 'teamMembers' field with the 'name' field of the User model
 
+    // Respond with the projects
     res.status(200).json(projects);
   } catch (error) {
     console.error("Error fetching projects:", error);

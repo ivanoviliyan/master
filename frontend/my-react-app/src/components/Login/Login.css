@@ -1,4 +1,4 @@
-/* Login container styling */
+
 .login-container {
   width: 25%;
   display: flex;
@@ -73,7 +73,6 @@ button:hover {
 }
 
 .logo {
-  padding-top: 10%;
   width: 40%;
   min-width: 200px;
   max-width: 800px;
@@ -91,6 +90,7 @@ button:hover {
 }
 
 .page {
+  
   padding: 5%;
   margin: 5% 15%;
   border: 1px solid #ddd;

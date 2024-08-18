@@ -60,7 +60,7 @@ const Singup = () => {
   };
 
   const handleCancel = () => {
-    navigate('/login');
+    navigate('/');
   }
 
   return (
