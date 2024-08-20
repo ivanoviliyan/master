@@ -1,0 +1,156 @@
+.project-details{
+    padding: 2%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(16, 89, 78);
+    color: white;
+    font-weight: bold;
+    width: 70%;
+    margin: 0 auto;
+}
+
+
+.project-details p span {
+    color:#FFC604;
+}
+
+.team-members h4, .history h4{
+    color:#FFC604;
+}
+
+.team-members p {
+    color: white;
+}
+
+.history div p {
+    color: #FFC604;
+}
+
+.history div span {
+    color: white;
+}
+
+.team-cont, .edit-name, .edit-desc, .edit-status {
+    min-height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px
+}
+
+.team-cont input {
+    width: 200px;
+    height: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: medium;
+}
+
+.team-cont h4, .history-cont h4 {
+    font-size: larger;
+}
+
+.history-cont {
+    gap: 20px;
+}
+.history{
+    overflow-y: scroll;
+    height: 600px;
+}
+.edit-status .status-btns {
+    display: flex;
+    gap: 40px
+}
+
+.edit-status > select:nth-child(1) {
+    width: 60%;
+    height: 50px;
+    font-size: medium;
+    border-radius: 10px;
+}
+
+.edit-status p{
+    font-size: larger;
+}
+
+.edit-desc{
+    display: flex;
+    align-items: flex-start;
+
+}
+.edit-desc p {
+    flex: 1;
+    margin-top: 0;
+    background-color: whitesmoke;
+    color: black;
+    height: 140px;
+    padding: 15px;
+    font-weight: normal;
+    border-radius: 15px;
+}
+
+.project-details-btn{
+    background-color  :#FFC604;
+}
+
+.team-row{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.team-row p{
+    width: 20%;
+}
+
+.remove-btn {
+    background-color: rgb(247, 46, 46);
+    color: white;
+    height: 30px;
+}
+
+.edit-desc textarea {
+    width: 80%;
+    height: 140px;
+    padding: 15px;
+    font-size: 15px;
+    border-radius: 15px;
+    padding-top: 15px;
+}
+
+.save-btn {
+    background-color: green;
+    color:white;
+}
+
+.cancel-btn {
+    background-color: red;
+    color:white;
+}
+
+.edit-name > input:nth-child(1) {
+    height: 30px;
+    font-size: large;
+}
+
+.history-cont > select:nth-child(2) {
+    height: 37px;
+    font-size: medium;
+}
+
+.task-row {
+    border: solid 1px whitesmoke;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 1%;
+    width: 60%;
+}
+
+
+
+.prjct-page{
+    display: flex;
+    margin: 2%;
+    gap: 20px
+}

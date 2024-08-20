@@ -32,7 +32,7 @@
   margin-right: 10px;
 }
 
-input {
+.input {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex: 1;
   padding: 9px;
@@ -54,7 +54,6 @@ button {
   border-radius: 10px;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  margin-top: 25px;
   font-weight: 600;
 }
 

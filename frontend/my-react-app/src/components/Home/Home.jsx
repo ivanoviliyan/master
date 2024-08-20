@@ -57,7 +57,7 @@ const Home = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const handleLogOut = () => {
-    navigate('/login');
+    navigate('/');
   }
 
   return (

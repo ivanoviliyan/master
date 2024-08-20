@@ -1,0 +1,65 @@
+.find-members {
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(16, 89, 78);
+    border-radius: 10px;
+    width: 30%;
+
+}
+
+.find-input{
+    display: flex;
+    gap: 30px;
+}
+
+.find-input input {
+    border-radius: 10px;
+    width: 70%;
+}
+
+.find-members p {
+    font-size: x-large;
+    font-weight: bold;
+    color: whitesmoke;
+}
+
+.search-btn {
+    width: 30%;
+    background-color  :#FFC604;
+}
+
+.member{
+    margin-top: 20px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.user-data {
+    font-size: medium;
+    flex: 2;
+    color: whitesmoke;
+    font-weight: bold;
+
+}
+.user-add-btn{
+    margin-top: 5px;
+    width: 100%;
+    background-color: rgb(13, 145, 211);
+    color: whitesmoke;
+    font-size: large;
+}
+
+.separator{
+    width: 100%;
+    height: 5px;
+    border-radius: 20px;
+    background-color: whitesmoke;
+}
+
+.all-members{
+    overflow-y: scroll;
+    height: 1000px;
+}

@@ -78,12 +78,14 @@ const Login = () => {
         return response.json();
       })
       .then((data) => {
-        navigate('/home', { state: { userData: data } });
+        navigate("/home", { state: { userData: data } });
       })
-      .catch(error => {
-        setErrorMessage('Wrong credentials! Please check your email and password');
+      .catch((error) => {
+        setErrorMessage(
+          "Wrong credentials! Please check your email and password"
+        );
         clearMessage(2000);
-    });
+      });
   };
 
   return (
@@ -96,6 +98,7 @@ const Login = () => {
               <div className="login-row">
                 <img src={emailImg} className="login-icon" alt="Email Icon" />
                 <input
+                  className="input"
                   type="email"
                   name="email"
                   id="email-input"
@@ -111,6 +114,7 @@ const Login = () => {
                   alt="Password Icon"
                 />
                 <input
+                  className="input"
                   type="password"
                   name="password"
                   id="password-input"

@@ -31,7 +31,11 @@ const projectSchema = new mongoose.Schema({
             end: {
                 type: Date,
             }
-        }
+        },
+        taskAdder: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
     }],
     startDate: {
         type: Date,

@@ -98,8 +98,20 @@ const deleteUser = async (req, res) => {
 
         return res.status(404).json({ message: "User not found and cannot be deleted!" });
     } catch (error) {
-        console.error(error);
         return res.status(500).json({ message: "Error deleting user!" });
+    }
+}
+
+const getMember = async (req, res) => {
+    try {
+        const member = req.params.member;
+        const findMember = await User.find({ name: { $regex: member, $options: 'i' } });
+        if (!findMember || findMember.length === 0) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        return res.json(findMember);
+    } catch (error) {
+        return res.status(500).json({ message: "Server error", error: error.message });
     }
 }
 
@@ -108,5 +120,6 @@ module.exports = {
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getMember
 };
