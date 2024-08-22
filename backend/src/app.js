@@ -4,6 +4,7 @@ const companyRoutes = require('./routes/companyRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const userRoutes = require('./routes/userRoutes');
 const userLoginRoutes = require('./routes/userLoginRoutes');
+const verifyToken = require('./middleware/verifyToken');
 
 const app = express();
 
@@ -12,16 +13,20 @@ app.use(cors({
     origin: '*', // Allow all origins (for testing purposes only)
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-  }));
-  
+}));
 
 // Middleware for parsing JSON
 app.use(express.json());
 
-// Register routes
+// Register the /login route without the verifyToken middleware
+app.use('/login', userLoginRoutes);
+
+// Apply verifyToken middleware for all routes below this line
+app.use(verifyToken);
+
+// Register routes (protected by verifyToken middleware)
 app.use('/companies', companyRoutes);
 app.use('/projects', projectRoutes);
 app.use('/users', userRoutes);
-app.use('/login', userLoginRoutes);
 
 module.exports = app;
