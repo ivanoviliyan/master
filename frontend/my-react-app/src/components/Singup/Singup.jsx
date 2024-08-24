@@ -22,7 +22,7 @@ const Signup = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:8000/register', {
+      const response = await fetch('http://localhost:8000/login/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,6 +36,7 @@ const Signup = () => {
 
       const data = await response.json();
       console.log('Registration data sent successfully:', data);
+      navigate('/');
     } catch (error) {
       console.error('Error sending registration data:', error);
     }
