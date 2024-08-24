@@ -1,12 +1,13 @@
 .project-card{
-    background-color: whitesmoke;
+    background-color: #03346E;
     border-radius: 10px;
     padding: 10px 25px;
-    color:black;
+    color:#6EACDA;
 }
 
 .colored{
-    color:black;
+    color:#E2E2B6;
+    font-weight: bold;
 }
 
 .more-info{
@@ -20,7 +21,8 @@
 }
 
 .btn-details{
-    background-color: #FFC604;
+    background-color: #6EACDA;
+    color: #021526;
     width: 100px;
     display: flex;
     justify-content: space-around;
@@ -29,4 +31,18 @@
 
 .new-page-png img {
     width: 15px;
+}
+
+.team-members{
+    padding-top: 0;
+    margin-top: 0;
+    overflow-y: scroll;
+    height: 150px;
+}
+.team-members p {
+    color: #6EACDA;
+}
+
+.team-cont h4{
+    color:#FFC604;
 }

@@ -47,17 +47,17 @@ const Login = () => {
       return;
     }
 
-    if (!regex.password.test(password)) {
-      setErrorMessage(`
-        Password must be at least 8 characters long and contain:
-        - At least one uppercase letter
-        - At least one lowercase letter
-        - At least one number
-        - At least one special character (@$!%*?&)
-      `);
-      clearMessage(8000);
-      return;
-    }
+    // if (!regex.password.test(password)) {
+    //   setErrorMessage(`
+    //     Password must be at least 8 characters long and contain:
+    //     - At least one uppercase letter
+    //     - At least one lowercase letter
+    //     - At least one number
+    //     - At least one special character (@$!%*?&)
+    //   `);
+    //   clearMessage(8000);
+    //   return;
+    // }
 
     const loginData = {
       email,
@@ -78,7 +78,10 @@ const Login = () => {
         return response.json();
       })
       .then((data) => {
-        navigate("/home", { state: { userData: data } });
+        // Store token and userId in sessionStorage
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("userId", data.userId);
+        navigate("/home");
       })
       .catch((error) => {
         setErrorMessage(
@@ -131,11 +134,11 @@ const Login = () => {
           <img src={logoImg} alt="Logo" className="logo" />
         </div>
         <div className="buttons-container">
+        <button className="btn-login" onClick={handleSubmit}>
+            Login
+          </button>
           <button className="btn-signup" onClick={handleSignUp}>
             Sign up
-          </button>
-          <button className="btn-login" onClick={handleSubmit}>
-            Login
           </button>
         </div>
       </div>

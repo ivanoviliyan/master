@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./ProjectDetails.css";
 import Find from "../Find/Find";
 
 const ProjectDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,18 +20,26 @@ const ProjectDetails = () => {
       end: "",
     },
   });
-  const [showFind, setShowFind] = useState(true);
+  const [showFind, setShowFind] = useState(false);
+
+  // Get the token from sessionStorage
+  const token = sessionStorage.getItem("token");
 
   const fetchProject = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/projects/${id}`);
+      const response = await fetch(`http://localhost:8000/projects/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include JWT token in headers
+        },
+      });
+
       if (!response.ok) {
         throw new Error("Project not found");
       }
+
       const result = await response.json();
       setProject(result);
       setFormData({
-        ...formData,
         name: result.name || "",
         description: result.description || "",
         status: result.status || "Not Started",
@@ -67,6 +76,7 @@ const ProjectDetails = () => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include JWT token in headers
           },
         }
       );
@@ -100,6 +110,7 @@ const ProjectDetails = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include JWT token in headers
         },
         body: JSON.stringify({ history: updatedHistory }),
       });
@@ -136,25 +147,30 @@ const ProjectDetails = () => {
   };
 
   const handleUpdateProject = async () => {
+    if (!project) return;
+
     try {
+      const updatedProjectData = {
+        ...project,
+        name: formData.name,
+        description: formData.description,
+        status: formData.status,
+      };
+
       const response = await fetch(`http://localhost:8000/projects/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include JWT token in headers
         },
-        body: JSON.stringify({
-          name: formData.name,
-          description: formData.description,
-          status: formData.status,
-        }),
+        body: JSON.stringify(updatedProjectData),
       });
 
       if (!response.ok) {
         throw new Error("Failed to update project");
       }
 
-      const updatedProject = await response.json();
-      setProject(updatedProject.data);
+      await fetchProject();
       setEditField(null);
     } catch (error) {
       setError(error);
@@ -167,41 +183,41 @@ const ProjectDetails = () => {
 
   const handleAddMember = async (newMember) => {
     if (!project || !project.teamMembers) return;
-  
-    // Check if the member is already in the teamMembers array
+
     const isMemberAlreadyAdded = project.teamMembers.some(
       (member) => member._id === newMember._id
     );
-  
+
     if (isMemberAlreadyAdded) {
-      console.log("Member is already added to the project.");
       return;
     }
-  
+
     try {
-      // Add the new member to the project
       const response = await fetch(`http://localhost:8000/projects/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include JWT token in headers
         },
         body: JSON.stringify({
           ...project,
           teamMembers: [...project.teamMembers, newMember],
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to add member to project");
       }
-  
-      // Fetch the updated project data
+
       fetchProject();
     } catch (error) {
       console.error("Error adding member:", error);
     }
   };
-  
+
+  const handleBackButton = () => {
+    navigate(-1);
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -210,6 +226,7 @@ const ProjectDetails = () => {
     <>
       <div className="prjct-page">
         <div className="project-details">
+          <button className="back-btn" onClick={handleBackButton}>Back</button>
           <div className="edit-name">
             {editField === "name" ? (
               <>
@@ -301,17 +318,16 @@ const ProjectDetails = () => {
               </>
             )}
           </div>
-
-          <div className="team-members">
-            <div className="team-cont">
-              <h4>Team members</h4>
-              <button
-                className="project-details-btn"
-                onClick={handleFindMembers}
-              >
-                Find members
-              </button>
-            </div>
+          <div className="team-cont">
+            <h4>Team members</h4>
+            <button
+              className="project-details-btn"
+              onClick={handleFindMembers}
+            >
+              Find members
+            </button>
+          </div>
+          <div className="team-members-pr">
             {project &&
             project.teamMembers &&
             project.teamMembers.length > 0 ? (
@@ -332,12 +348,10 @@ const ProjectDetails = () => {
               <p>No team members available.</p>
             )}
           </div>
-
           <div className="history">
             <div className="history-cont">
               <h4>History:</h4>
             </div>
-
             {project && project.history && project.history.length > 0 ? (
               project.history.map((entry, index) => (
                 <div className="task-row" key={index}>

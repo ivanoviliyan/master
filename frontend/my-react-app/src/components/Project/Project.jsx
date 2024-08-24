@@ -23,9 +23,10 @@ const Project = ({ _id, name, description, status, teamMembers, history }) => {
         </div>
       </div>
       <p>{description}</p>
-      <p>Status: {status}</p>
+      <p className="colored">Status: {status}</p>
+      <h4 className="colored">Team Members:</h4>
       <div className="team-members">
-        <h4 className="colored">Team Members:</h4>
+
         {teamMembers && teamMembers.length > 0 ? (
           teamMembers.map((el, index) => (
             <div key={index}>

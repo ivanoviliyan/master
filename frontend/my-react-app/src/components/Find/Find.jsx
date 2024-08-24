@@ -6,18 +6,25 @@ const Find = ({ onAddMember }) => {
   const [member, setMember] = useState("");
   const [foundMembers, setFoundMembers] = useState([]);
   const { id } = useParams();
+  const [message, setMessage] = useState(""); // State to hold error message
+
+  const userId = sessionStorage.getItem("userId");
+  const token = sessionStorage.getItem("token"); // Get the token from session storage
 
   const findMember = (e) => {
-    if (String(e.target.value).length > 0) {
-      setMember(e.target.value);
-    }
+    setMember(e.target.value);
   };
 
   useEffect(() => {
     const getUser = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/users/member/${member}`
+          `http://localhost:8000/users/member/${member}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include the token in the request headers
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Project not found");
@@ -36,6 +43,30 @@ const Find = ({ onAddMember }) => {
 
   const handleAdd = async (userId) => {
     try {
+      // Fetch the current project details to get the list of team members
+      const projectResponse = await fetch(
+        `http://localhost:8000/projects/${id}`
+      );
+      if (!projectResponse.ok) {
+        throw new Error("Failed to fetch project details");
+      }
+
+      const project = await projectResponse.json();
+
+      // Check if the user is already in the team members list
+      const isAlreadyAdded = project.teamMembers.some(
+        (member) => member._id === userId
+      );
+
+      if (isAlreadyAdded) {
+        setMessage("User already has been added.");
+        setTimeout(() => {
+          setMessage(""); // Clear the message after 2 seconds
+        }, 2000);
+        return;
+      }
+
+      // If not already added, proceed to add the user
       const response = await fetch(
         `http://localhost:8000/projects/${id}/${userId}`,
         {
@@ -50,14 +81,14 @@ const Find = ({ onAddMember }) => {
         throw new Error("Failed to add user to project");
       }
 
-      // Fetch user details
+      // Fetch user details after adding
       const userResponse = await fetch(`http://localhost:8000/users/${userId}`);
       if (!userResponse.ok) {
         throw new Error("Failed to fetch user details");
       }
 
       const user = await userResponse.json();
-      onAddMember(user.data); // Pass complete user object
+      onAddMember(user.data); // Pass the user object to ProjectDetails
     } catch (error) {
       console.log("Error:", error);
     }
@@ -68,24 +99,26 @@ const Find = ({ onAddMember }) => {
       <div className="find-members">
         <p>Teammates</p>
         <div className="find-input">
-          <input onInput={findMember} type="text" />
-          <button className="search-btn">Search</button>
+          <input
+            onInput={findMember}
+            type="text"
+            placeholder="Search for members"
+          />
         </div>
+        {message && <span className="error-msg">{message}</span>}{" "}
+        {/* Conditionally render the Error component */}
         <div className="all-members">
           {foundMembers.map((member) => (
             <div key={member._id} className="member">
-              <span className="user-data">{member.name}</span>
-              <span className="user-data">{member.level}</span>
-              <span className="user-data">{member.role}</span>
+              <span>Name: <u>{member.name}</u></span>
+              <span>Level: <u>{member.level}</u></span>
+              <span>Role: <u>{member.role}</u></span>
               <button
                 className="user-add-btn"
-                onClick={() => {
-                  handleAdd(member._id);
-                }}
+                onClick={() => handleAdd(member._id)}
               >
                 Add
               </button>
-              <div className="separator"></div>
             </div>
           ))}
         </div>

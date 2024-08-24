@@ -1,0 +1,20 @@
+.admin-tools{
+    background-color: #E2E2B6;
+    display: flex;
+    justify-content: start;
+    padding-left: 2%;
+    align-items: center;
+    gap: 5%;
+    margin: 1% 0;
+    font-weight: bold;
+}
+
+.admin-tools button {
+    background: none;
+    box-shadow: none;
+}
+
+.admin-tools button:hover{
+    background-color: #e0e09d;
+    opacity: 1;
+}

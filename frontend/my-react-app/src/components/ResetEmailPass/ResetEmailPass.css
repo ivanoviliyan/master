@@ -1,0 +1,19 @@
+.cred-input{
+    height: 40px;
+    border-radius: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+.cred {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.cred button{
+    width: 100%;
+    background-color: #6EACDA;
+}

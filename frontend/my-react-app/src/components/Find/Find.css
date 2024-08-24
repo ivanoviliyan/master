@@ -2,32 +2,50 @@
     padding: 2%;
     display: flex;
     flex-direction: column;
-    background-color: rgb(16, 89, 78);
-    border-radius: 10px;
+    background-color: #03346E;
+    border-radius: 15px;
     width: 30%;
 
 }
 
-.find-input{
+.find-input {
     display: flex;
-    gap: 30px;
+    justify-content: center;
 }
 
-.find-input input {
-    border-radius: 10px;
-    width: 70%;
+.find-input input{
+    display: flex;
+    width: 80%;
+    height: 50px;
+    padding: 10px;
+    font-size: medium;
+    border-radius: 15px;
 }
+
+.member u {
+    text-decoration: none;
+    color:aliceblue;
+    font-weight: bold;
+}
+
+.error-msg{
+    background-color: red;
+    padding: 10px;
+    font-size: medium;
+    border-radius: 10px;
+    margin-top: 30px;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
 
 .find-members p {
     font-size: x-large;
     font-weight: bold;
     color: whitesmoke;
+    margin: 20px auto;
 }
 
-.search-btn {
-    width: 30%;
-    background-color  :#FFC604;
-}
 
 .member{
     margin-top: 20px;
@@ -35,15 +53,23 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    box-shadow: rgba(0, 0, 0, 0.06) 4px 8px 16px 4px inset;
+    border-radius: 15px;
+    padding: 20px;
+    gap: 0.7; /* Space between items */
+    color: #E2E2B6;
 }
 
-.user-data {
-    font-size: medium;
-    flex: 2;
-    color: whitesmoke;
-    font-weight: bold;
-
-}
+.user-data-find {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.06) 4px 8px 16px 4px inset;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7; /* Space between items */
+    color: #E2E2B6;
+  }
 .user-add-btn{
     margin-top: 5px;
     width: 100%;
@@ -62,4 +88,7 @@
 .all-members{
     overflow-y: scroll;
     height: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }

@@ -1,23 +1,23 @@
-.singup-form {
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
+.signup-form{
+  background-color: whitesmoke;
   width: 70%;
-  margin: 0 auto;
-  background: white;
-  margin-top: 25px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 5% auto;
+  color:#03346E;
+  padding: 20px;
+  border-radius: 15px;
 }
+
 .rows {
   display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: 0 auto;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 20px;
 }
 
 .row {
-  flex: 1 1 48%; /* Adjust the width of each row to be 48% */
+  color: #03346E;
   display: flex;
   flex-direction: column;
 }
@@ -55,11 +55,6 @@
   min-height: 50px;
 }
 
-.buttons-container {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
 
 button {
   width: 150px;
@@ -77,22 +72,19 @@ button:hover {
   opacity: 0.85;
 }
 
-button.singup {
-  background-color: #3d3839;
-  color: white;
-}
-
-button.cancel {
-  background-color: #ffc604;
-  color: #3d3839;
-}
-
-.singup-logo{
-  width: 200px;
+.signup-logo{
+  width: 250px;
 }
 
 .label {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.buttons-container-singup {
+  display: flex;
+  justify-content: center;
+  gap: 10%;
+  padding-top: 50px;
 }

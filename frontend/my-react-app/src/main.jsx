@@ -7,6 +7,8 @@ import Login from './components/Login/Login';
 import Signup from './components/Singup/Singup';
 import Home from './components/Home/Home';
 import ProjectDetails from './components/ProjectDetails/ProjectDetails';
+import { Options } from "./components/Options/Options";
+import CreateProject from './components/CreateProject/CreateProject'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
   {
     path: 'projects/:id',
     element: <ProjectDetails />,
+  },
+  {
+    path: '/options',
+    element: <Options />,
+  },
+  {
+    path: '/create-project',
+    element: <CreateProject/>,
   }
 ]);
 

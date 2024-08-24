@@ -16,12 +16,12 @@ const userSchema = new mongoose.Schema({
             "Project manager", 
             "Field work"
         ],
-        required: true,
+        required: false,
     },
     level: {
         type: String,
         enum: ["Senior", "Junior", "Mid"],
-        required: true,
+        required: false,
     },
     password: {
         type: String,
@@ -38,6 +38,11 @@ const userSchema = new mongoose.Schema({
     telephoneNumber: {
         type: String,
         required: true,
+    },
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false,
     }
 }, { timestamps: true });
 

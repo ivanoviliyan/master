@@ -1,0 +1,82 @@
+.user-page {
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left; /* Center text inside */
+    gap: 1rem;
+  }
+  
+  .header {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Align items vertically center if needed */
+    width: 100%;
+    position: relative; /* Needed for absolute positioning of the button */
+  }
+  
+  .header button {
+    position: absolute; /* Position the button absolutely to align it to the left */
+    left: 0; /* Align to the left edge */
+    margin-top: 25px;
+    margin-left: 3%;
+  }
+  
+  .header h2 {
+    margin: 20px 0; /* Remove default margin */
+    flex: 1; /* Allow the <h2> to take up remaining space */
+    text-align: center; /* Center text inside <h2> */
+  }
+
+  .user-data {
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 8px 0px inset;
+    border-radius: 15px;
+    background-color: rgb(3, 52, 110);
+    padding: 1% 5% 2% 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7; /* Space between items */
+  }
+
+
+  .user-change{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: rgb(3, 52, 110);
+  }
+
+  .email-reset, .pass-reset{
+    width: 100%;
+    color: whitesmoke;
+  }
+
+  .email-reset{
+    background-color: rgb(226, 226, 182);
+    color: #021526;
+  }
+
+  .pass-reset{
+    background-color: rgb(226, 226, 182);
+    color: #021526;
+  }
+
+  .show {
+    display: flex;
+    gap: 10%;
+    align-items: center;
+    justify-content: center;
+    background-color: #03346E;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 8px 0px inset;
+    width: 80%;
+  }
+  .back-btn{
+    background-color: #6EACDA;
+  }
+
+  .cred {
+    width: 35%;
+    padding-bottom: 40px;
+  }

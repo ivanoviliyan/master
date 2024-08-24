@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const companyRoutes = require('./routes/companyRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const userRoutes = require('./routes/userRoutes');
 const userLoginRoutes = require('./routes/userLoginRoutes');
@@ -25,7 +24,7 @@ app.use('/login', userLoginRoutes);
 app.use(verifyToken);
 
 // Register routes (protected by verifyToken middleware)
-app.use('/companies', companyRoutes);
+
 app.use('/projects', projectRoutes);
 app.use('/users', userRoutes);
 
