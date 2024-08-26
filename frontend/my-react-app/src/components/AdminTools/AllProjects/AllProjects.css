@@ -1,0 +1,21 @@
+.search-input {
+  padding: 10px; /* Add padding for a better look and feel */
+  width: 300px;
+  text-align: center;
+  border: 1px solid #6EACDA; /* Border color to match the project's color scheme */
+  border-radius: 15px; /* Rounded corners */
+  font-size: 1em; /* Font size */
+}
+.inputholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  .cont {
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2%;
+    padding-right: 2%;
+  }

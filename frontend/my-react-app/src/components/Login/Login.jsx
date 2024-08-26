@@ -4,6 +4,7 @@ import "./Login.css";
 import passwordImg from "./assets/password.png";
 import emailImg from "./assets/email.png";
 import logoImg from "./assets/logo-no-background.svg";
+// import Footer from '../Footer/Footer';
 
 const Login = () => {
   const url = "http://localhost:8000/login";
@@ -81,6 +82,7 @@ const Login = () => {
         // Store token and userId in sessionStorage
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("userId", data.userId);
+        sessionStorage.setItem("isAdmin", data.isAdmin);
         navigate("/home");
       })
       .catch((error) => {
@@ -134,11 +136,11 @@ const Login = () => {
           <img src={logoImg} alt="Logo" className="logo" />
         </div>
         <div className="buttons-container">
-        <button className="btn-login" onClick={handleSubmit}>
-            Login
-          </button>
           <button className="btn-signup" onClick={handleSignUp}>
             Sign up
+          </button>
+          <button className="btn-login" onClick={handleSubmit}>
+            Login
           </button>
         </div>
       </div>

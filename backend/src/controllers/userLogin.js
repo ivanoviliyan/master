@@ -6,7 +6,7 @@ const userLogin = async (req, res) => {
     try {
         const userCredentials = req.body;
         const validUser = await User.findOne({ email: userCredentials.email });
-
+        
         if (!validUser) {
             return res.status(401).json({ message: "Wrong email!" });
         }
@@ -24,13 +24,19 @@ const userLogin = async (req, res) => {
             { expiresIn: '1h' }                            
         );
 
-        return res.status(200).json({ token, userId: validUser._id });
+        // Include isAdmin status in the response
+        return res.status(200).json({ 
+            token, 
+            userId: validUser._id, 
+            isAdmin: validUser.isAdmin  // Adding the isAdmin flag
+        });
     
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Error in login logic!" });
     }
 };
+
 
 const createUser = async (req, res) => {
     try {

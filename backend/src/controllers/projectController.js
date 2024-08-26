@@ -25,8 +25,12 @@ const getProjectById = async (req, res) => {
     const project = await Project.findById(id)
       .populate("teamMembers", "name") // Populate teamMembers with their names
       .populate({
-        path: "history.taskAdder", // Populate taskAdder in history array
-        select: "name",
+        path: "history", // Populate history array
+        populate: {
+          path: "userid", // Populate user details in each task
+          select: "name",
+        },
+        options: { sort: { createdAt: -1 } }, // Sort history tasks by creation date in descending order
       })
       .exec();
 
@@ -42,6 +46,9 @@ const getProjectById = async (req, res) => {
     return res.status(500).json({ message: "Error retrieving project!" });
   }
 };
+
+
+
 
 const createProject = async (req, res) => {
   try {

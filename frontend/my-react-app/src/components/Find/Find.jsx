@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Find.css";
 import { useParams } from "react-router-dom";
 
+
 const Find = ({ onAddMember }) => {
   const [member, setMember] = useState("");
   const [foundMembers, setFoundMembers] = useState([]);
@@ -45,7 +46,12 @@ const Find = ({ onAddMember }) => {
     try {
       // Fetch the current project details to get the list of team members
       const projectResponse = await fetch(
-        `http://localhost:8000/projects/${id}`
+        `http://localhost:8000/projects/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the request headers
+          },
+        }
       );
       if (!projectResponse.ok) {
         throw new Error("Failed to fetch project details");
@@ -73,6 +79,7 @@ const Find = ({ onAddMember }) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
           },
         }
       );
@@ -82,7 +89,11 @@ const Find = ({ onAddMember }) => {
       }
 
       // Fetch user details after adding
-      const userResponse = await fetch(`http://localhost:8000/users/${userId}`);
+      const userResponse = await fetch(`http://localhost:8000/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (!userResponse.ok) {
         throw new Error("Failed to fetch user details");
       }

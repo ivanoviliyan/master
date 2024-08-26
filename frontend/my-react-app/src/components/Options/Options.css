@@ -7,6 +7,14 @@
     gap: 1rem;
   }
   
+.edit-btn {
+  width: 235px;
+  margin: 20px auto;
+}
+.header span {
+  color: #6EACDA;
+}
+
   .header {
     padding-top: 20px;
     display: flex;
@@ -14,6 +22,7 @@
     align-items: center; /* Align items vertically center if needed */
     width: 100%;
     position: relative; /* Needed for absolute positioning of the button */
+    color: #E2E2B6;
   }
   
   .header button {
@@ -39,6 +48,9 @@
     gap: 0.7; /* Space between items */
   }
 
+  .save-btn{
+    margin: 30px 0;
+  }
 
   .user-change{
     display: flex;

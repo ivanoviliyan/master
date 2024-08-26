@@ -3,6 +3,43 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
+
+const getAdminUsers = async (req, res) => {
+    try {
+        const users = await User.find({isAdmin: true});
+
+        if (users.length > 0) {
+            return res.status(200).json({ data: users, message: "Admins retrieved successfully!" });
+        }
+
+        return res.status(404).json({ message: "No existing admins!" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Error retrieving admins!" });
+    }
+};
+
+const toggleAdminStatus = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        user.isAdmin = !user.isAdmin; // Toggle the isAdmin status
+        await user.save();
+
+        res.status(200).json({ message: "User admin status updated", isAdmin: user.isAdmin });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error updating admin status" });
+    }
+};
+
+
+
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -29,10 +66,11 @@ const getUserById = async (req, res) => {
 
         return res.status(404).json({ message: "User not found!" });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: "Error retrieving user by ID!" });
+        console.error('Error retrieving user by ID:', error);  // Add more specific logging
+        return res.status(500).json({ message: "Error retrieving user by ID!", error: error.message });
     }
-}
+};
+
 
 
 
@@ -90,8 +128,7 @@ const getMember = async (req, res) => {
 
 const changeEmail = async (req, res) => {
     try {
-        const userId = req.params.id;
-        const { oldEmail, newEmail } = req.body;
+        const { oldEmail, newEmail, userId } = req.body;
 
         // Validate the user ID
         if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -177,5 +214,7 @@ module.exports = {
     deleteUser,
     getMember,
     changeEmail,
-    resetPassword
+    resetPassword,
+    toggleAdminStatus,
+    getAdminUsers
 };

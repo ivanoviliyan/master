@@ -9,7 +9,6 @@ const Signup = () => {
     name: '',
     password: '',
     email: '',
-    phone: '',
   });
 
   const handleChange = (e) => {
@@ -65,10 +64,6 @@ const Signup = () => {
           <div className="row">
             <label htmlFor="name">Name:</label>
             <input type="text" name="name" value={register.name} onChange={handleChange} />
-          </div>
-          <div className="row">
-            <label htmlFor="phone">Phone:</label>
-            <input type="text" name="phone" value={register.phone} onChange={handleChange} />
           </div>
         </div>
 

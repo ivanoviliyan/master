@@ -3,8 +3,13 @@ import Project from "../Project/Project";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import Tools from '../Tools/Tools';
+import {Footer} from '../Footer/Footer';
+import getAdmins from '../../admins.js';
+
+
 
 const Home = () => {
+  const isAdmin = sessionStorage.getItem("isAdmin");
   const navigate = useNavigate();
   const userId = sessionStorage.getItem("userId");
   const token = sessionStorage.getItem("token"); // Get the token from session storage
@@ -13,6 +18,8 @@ const Home = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+
 
   const url = `http://localhost:8000/projects/user/${userId}`;
   const userDataUrl = `http://localhost:8000/users/${userId}`;
@@ -77,6 +84,10 @@ const Home = () => {
     navigate("/options");
   };
 
+  const handleAdminClick = () => {
+    navigate("/admin-menu");
+  }
+
   return (
     <>
       <div className="user-container">
@@ -89,11 +100,13 @@ const Home = () => {
           </h2>
           <p>Please find all projects that you are assigned to:</p>
         </div>
+        
         <button className="btn-options" onClick={handleOptionsClick}>
           Options
         </button>
+        {isAdmin && <button className="admin-btn" onClick={handleAdminClick}>Admin Menu</button>}
       </div>
-      <Tools/>
+      {isAdmin && <Tools/>}
       <div className="projects-grid">
         {data && Array.isArray(data) && data.length > 0 ? (
           data.map((entry) => (
@@ -111,6 +124,7 @@ const Home = () => {
           <p>No projects found.</p>
         )}
       </div>
+      <Footer/>
     </>
   );
 };

@@ -17,10 +17,12 @@ const userSchema = new mongoose.Schema({
             "Field work"
         ],
         required: false,
+        default: 'Scripter'
     },
     level: {
         type: String,
         enum: ["Senior", "Junior", "Mid"],
+        default: 'Junior',
         required: false,
     },
     password: {
@@ -34,10 +36,6 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         unique: true,
         match: [/\S+@\S+\.\S+/, 'Please use a valid email address'],
-    },
-    telephoneNumber: {
-        type: String,
-        required: false,
     },
     isAdmin: {
         type: Boolean,

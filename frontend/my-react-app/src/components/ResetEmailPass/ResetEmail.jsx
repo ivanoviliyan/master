@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import "./ResetEmailPass.css";
+import { useNavigate } from 'react-router-dom';
 
 export const ResetEmail = () => {
+    const navigate = useNavigate();
     const [oldEmail, setOldEmail] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -9,7 +11,7 @@ export const ResetEmail = () => {
 
     // Get the token from sessionStorage
     const token = sessionStorage.getItem('token');
-    const userId = sessionStorage.getItem('id');
+    const userId = sessionStorage.getItem('userId');
     
     const handleEmailUpdate = async () => {
         if (!oldEmail || !newEmail) {
@@ -27,7 +29,7 @@ export const ResetEmail = () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`, // Include JWT token in headers
                 },
-                body: JSON.stringify({ oldEmail, newEmail }),
+                body: JSON.stringify({ oldEmail, newEmail, userId }),
             });
 
             const result = await response.json();
@@ -38,6 +40,9 @@ export const ResetEmail = () => {
             setMessage(result.message || "Email updated successfully!");
             setOldEmail('');
             setNewEmail('');
+            setTimeout(() => {
+                navigate("/");
+              }, 1500);
         } catch (error) {
             setError(error.message || "An error occurred while updating email.");
         }

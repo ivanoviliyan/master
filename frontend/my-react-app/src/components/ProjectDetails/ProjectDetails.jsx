@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./ProjectDetails.css";
 import Find from "../Find/Find";
+import { Footer } from '../Footer/Footer';
+import getAdmins from '../../admins.js';
 
 const ProjectDetails = () => {
+  const permission = getAdmins();
   const navigate = useNavigate();
   const { id } = useParams();
   const [project, setProject] = useState(null);
@@ -22,29 +25,38 @@ const ProjectDetails = () => {
   });
   const [showFind, setShowFind] = useState(false);
 
-  // Get the token from sessionStorage
   const token = sessionStorage.getItem("token");
+  const userId = sessionStorage.getItem("userId");
+  const isAdmin = sessionStorage.getItem("isAdmin");
+
 
   const fetchProject = async () => {
     try {
       const response = await fetch(`http://localhost:8000/projects/${id}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Include JWT token in headers
+          Authorization: `Bearer ${token}`,
         },
       });
 
       if (!response.ok) {
-        throw new Error("Project not found");
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const result = await response.json();
-      setProject(result);
-      setFormData({
-        name: result.name || "",
-        description: result.description || "",
-        status: result.status || "Not Started",
-      });
+
+      // Check the result and set the project data
+      if (result && result._id) {
+        setProject(result);
+        setFormData({
+          name: result.name || "",
+          description: result.description || "",
+          status: result.status || "Not Started",
+        });
+      } else {
+        throw new Error("Project data is missing from the API response");
+      }
     } catch (error) {
+      console.error("Error fetching project:", error.message);
       setError(error);
     } finally {
       setLoading(false);
@@ -60,13 +72,6 @@ const ProjectDetails = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleTaskChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      newTask: { ...prevData.newTask, [name]: value },
-    }));
-  };
 
   const removeTeamMember = async (memberId) => {
     try {
@@ -76,7 +81,7 @@ const ProjectDetails = () => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Include JWT token in headers
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -100,19 +105,22 @@ const ProjectDetails = () => {
     }
   };
 
-  const handleRemoveTask = async (taskIndex) => {
-    const updatedHistory = project.history.filter(
-      (_, index) => index !== taskIndex
-    );
+  const handleRemoveTask = async (taskId) => {
+    if (!project || !project.history) return;
+
+    const updatedHistory = project.history.filter((task) => task._id !== taskId);
 
     try {
       const response = await fetch(`http://localhost:8000/projects/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include JWT token in headers
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ history: updatedHistory }),
+        body: JSON.stringify({
+          ...project,
+          history: updatedHistory,
+        }),
       });
 
       if (!response.ok) {
@@ -161,7 +169,7 @@ const ProjectDetails = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include JWT token in headers
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(updatedProjectData),
       });
@@ -197,7 +205,7 @@ const ProjectDetails = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include JWT token in headers
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           ...project,
@@ -222,11 +230,15 @@ const ProjectDetails = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  console.log(project);
+
   return (
     <>
       <div className="prjct-page">
         <div className="project-details">
-          <button className="back-btn" onClick={handleBackButton}>Back</button>
+          <button className="back-btn-details" onClick={handleBackButton}>
+            Back
+          </button>
           <div className="edit-name">
             {editField === "name" ? (
               <>
@@ -245,15 +257,26 @@ const ProjectDetails = () => {
               </>
             ) : (
               <>
-                <h1>{project.name}</h1>
-                <button
+                <h1>{project?.name || "No name"}</h1>
+                {isAdmin && <button
                   className="project-details-btn"
                   onClick={() => handleEditField("name")}
                 >
                   Change name
                 </button>
+                }
               </>
             )}
+          </div>
+          <div className="start-end-date">
+            <p>
+              <span>Start date:</span>{" "}
+              {project?.startDate ? new Date(project.startDate).toLocaleDateString() : "N/A"}
+            </p>
+            <p>
+              <span>End date:</span>{" "}
+              {project?.endDate ? new Date(project.endDate).toLocaleDateString() : "N/A"}
+            </p>
           </div>
           <div className="edit-desc">
             {editField === "description" ? (
@@ -272,13 +295,13 @@ const ProjectDetails = () => {
               </>
             ) : (
               <>
-                <p>{project.description}</p>
-                <button
+                <p>{project?.description || "No description"}</p>
+                {isAdmin && <button
                   className="project-details-btn"
                   onClick={() => handleEditField("description")}
                 >
                   Change description
-                </button>
+                </button>}
               </>
             )}
           </div>
@@ -307,71 +330,63 @@ const ProjectDetails = () => {
             ) : (
               <>
                 <p>
-                  <span>Status:</span> {project.status}
+                  <span>Status:</span> {project?.status || "No status"}
                 </p>
-                <button
+                {isAdmin && <button
                   className="project-details-btn"
                   onClick={() => handleEditField("status")}
                 >
                   Change status
-                </button>
+                </button>}
               </>
             )}
           </div>
-          <div className="team-cont">
-            <h4>Team members</h4>
-            <button
-              className="project-details-btn"
-              onClick={handleFindMembers}
-            >
-              Find members
-            </button>
-          </div>
-          <div className="team-members-pr">
-            {project &&
-            project.teamMembers &&
-            project.teamMembers.length > 0 ? (
-              project.teamMembers.map((member) => (
-                <div className="team-row" key={member._id}>
-                  <p>
-                    {member.name} {member.surname}
-                  </p>
-                  <button
-                    className="remove-btn"
-                    onClick={() => removeTeamMember(member._id)}
-                  >
-                    Remove member
-                  </button>
-                </div>
-              ))
+          <div className="edit-team">
+            <div className="edit-team-members">
+              <h2>Team Members</h2>
+              {isAdmin && <button className="project-details-btn" onClick={handleFindMembers}>
+                {showFind ? "Hide members tab" : "Show members tab"}
+              </button>}
+            </div>
+            {project?.teamMembers && project.teamMembers.length > 0 ? (
+              <div className="team-members-list">
+                {project.teamMembers.map((member) => (
+                  <div key={member._id} className="team-member">
+                    <span>{member.name}</span>
+                    {isAdmin && <button onClick={() => removeTeamMember(member._id)}>Remove</button>}
+                  </div>
+                ))}
+              </div>
             ) : (
-              <p>No team members available.</p>
+              <p>No team members added yet.</p>
             )}
           </div>
+
           <div className="history">
             <div className="history-cont">
               <h4>History:</h4>
             </div>
-            {project && project.history && project.history.length > 0 ? (
-              project.history.map((entry, index) => (
-                <div className="task-row" key={index}>
-                  <button
+            {project?.history && project.history.length > 0 ? (
+              project.history.map((task) => (
+                <div className="task-row" key={task._id}>
+                  {isAdmin && <button
                     className="remove-btn"
-                    onClick={() => handleRemoveTask(index)}
+                    onClick={() => handleRemoveTask(task._id)}
                   >
                     Remove task
-                  </button>
+                  </button>}
                   <p>
                     <span>Performer:</span>{" "}
-                    {entry.taskAdder ? entry.taskAdder.name : "Unknown"}
+                    {task.userid ? task.userid.name || "Unknown" : "Unknown"}
                   </p>
                   <p>
-                    <span>Task:</span> {entry.task}
+                    <span>Task:</span> {task.task || "No task description"}
                   </p>
                   <p>
                     <span>Duration:</span>{" "}
-                    {new Date(entry.duration.start).toLocaleDateString()} to{" "}
-                    {new Date(entry.duration.end).toLocaleDateString()}
+                    {task.startTime && task.endTime
+                      ? `${new Date(task.startTime).toLocaleDateString()} to ${new Date(task.endTime).toLocaleDateString()}`
+                      : "N/A"}
                   </p>
                 </div>
               ))
@@ -379,9 +394,11 @@ const ProjectDetails = () => {
               <p>No history available.</p>
             )}
           </div>
+
         </div>
         {showFind && <Find onAddMember={handleAddMember} />}
       </div>
+      <Footer />
     </>
   );
 };

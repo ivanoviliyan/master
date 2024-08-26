@@ -2,7 +2,6 @@
     display: flex;
     align-items: center; /* Align items vertically center */
     padding: 0 20px; /* Optional: adds padding around the container */
-    gap: 30px;
     height: 140px;
   }
   
@@ -11,6 +10,10 @@
     margin-top: 0;
     color:black;
   }
+
+  .admin-btn {
+    margin-left: 20px;
+  }
   .btn-options {
     margin-left: auto; /* Push the button to the left */
     margin-top: 0;
@@ -18,11 +21,13 @@
   }
   
   .user-info {
-    flex: 1; /* Allow the user-info to take up remaining space */
     text-align: center; /* Center text inside user-info */
     color: #E2E2B6;
     font-weight: bold;
     font-size: 1em;
+
+    background-color: #021526; /* Background color for contrast (optional) */
+    border-radius: 10px; /* Rounded corners (optional) */
   }
   .user-info span {
     color: #6EACDA;

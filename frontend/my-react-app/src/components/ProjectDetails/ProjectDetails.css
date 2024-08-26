@@ -15,7 +15,10 @@
     color:#E2E2B6;
 }
 
-
+.start-end-date {
+    display: flex;
+    gap: 5%;
+}
 
 .history div p {
     color: #E2E2B6;
@@ -141,7 +144,11 @@
     width: 60%;
 }
 
-
+.edit-team-members{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
 .prjct-page{
     display: flex;
@@ -154,4 +161,17 @@
     margin-top: 0;
     overflow-y: scroll;
     height: 250px;
+}
+
+.team-member{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    padding-right: 70%;
+}
+
+.back-btn-details{
+    margin-right: auto;
+    padding: 10px 20px;
 }

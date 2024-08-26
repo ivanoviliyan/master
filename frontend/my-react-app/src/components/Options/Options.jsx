@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Options.css";
 import { ResetEmail } from "../ResetEmailPass/ResetEmail";
 import { ResetPassword } from "../ResetEmailPass/ResetPassword";
-import { useState, useEffect } from "react";
+import {Footer} from '../Footer/Footer';
 
 export const Options = () => {
   const userId = sessionStorage.getItem("userId");
@@ -13,6 +13,11 @@ export const Options = () => {
   const [error, setError] = useState(null); // To manage error state
   const navigate = useNavigate(); // Use navigate hook for navigation
   const [showCred, setShowCred] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    role: "",
+    level: "",
+  });
 
   useEffect(() => {
     const getUser = async () => {
@@ -27,6 +32,10 @@ export const Options = () => {
         }
         const result = await response.json();
         setData(result.data);
+        setFormData({
+          role: result.data.role || "",
+          level: result.data.level || "",
+        });
       } catch (error) {
         setError(error.message); // Set error message
       } finally {
@@ -47,11 +56,42 @@ export const Options = () => {
 
   const handleShowCred = () => {
     setShowCred(!showCred);
-    console.log(showCred);
   };
 
   const handleBack = () => {
     navigate(-1);
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/users/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update user data");
+      }
+
+      const result = await response.json();
+      setData(result.data); // Update the local state with the updated user data
+      setIsEditing(false); // Exit editing mode
+    } catch (error) {
+      setError(error.message); // Handle error
+    }
   };
 
   return (
@@ -62,16 +102,48 @@ export const Options = () => {
             Back
           </button>
           <h2>
-            🖐🏼 Hi{" "}
-            <span>{data?.name}. Please find your profile data below:</span>
+            🖐🏼 Hi <span>{data?.name}</span>. Please find your profile data below:
           </h2>
         </div>
         <div className="user-data">
           <p>Name: {data?.name}</p>
           <p>Email: {data?.email}</p>
-          <p>Level: {data?.level}</p>
-          <p>Role: {data?.role}</p>
-          <p>Phone number: {data?.telephoneNumber}</p>
+
+          {isEditing ? (
+            <>
+              <div className="form-group">
+                <label>Role:</label>
+                <select name="role" value={formData.role} onChange={handleChange}>
+                  <option value="Scripter">Scripter</option>
+                  <option value="Custom scripter">Custom scripter</option>
+                  <option value="Quality assurance">Quality assurance</option>
+                  <option value="Data processing">Data processing</option>
+                  <option value="Project manager">Project manager</option>
+                  <option value="Field work">Field work</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Level:</label>
+                <select name="level" value={formData.level} onChange={handleChange}>
+                  <option value="Junior">Junior</option>
+                  <option value="Mid">Mid</option>
+                  <option value="Senior">Senior</option>
+                </select>
+              </div>
+              <button className="save-btn" onClick={handleSave}>
+                Save
+              </button>
+            </>
+          ) : (
+            <>
+              <p>Role: {data?.role || "Not provided"}</p>
+              <p>Level: {data?.level || "Not provided"}</p>
+              <button className="edit-btn" onClick={handleEdit}>
+                Edit
+              </button>
+            </>
+          )}
+
           <div className="user-change">
             <button className="pass-reset" onClick={handleShowCred}>
               Reset Credentials
@@ -79,9 +151,14 @@ export const Options = () => {
           </div>
         </div>
         <div className="show">
-          {showCred && <><ResetEmail /> <ResetPassword /></>}
+          {showCred && (
+            <>
+              <ResetEmail /> <ResetPassword />
+            </>
+          )}
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

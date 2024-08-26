@@ -1,0 +1,40 @@
+.add-task-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #03346E;
+    border-radius: 15px;
+    margin-right: 40%;
+    color: #E2E2B6;
+    min-width: 400px;
+    padding-bottom: 20px;
+}
+
+.add-task-page h1 {
+    text-align: center;
+}
+
+.task-form {
+    width: 100%;
+}
+
+.form-group select {
+    width: 100%;
+}
+
+.task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.all-page {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.back-btn-task {
+    margin-left: 2%;
+}

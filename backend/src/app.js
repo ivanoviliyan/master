@@ -3,6 +3,7 @@ const cors = require('cors');
 const projectRoutes = require('./routes/projectRoutes');
 const userRoutes = require('./routes/userRoutes');
 const userLoginRoutes = require('./routes/userLoginRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 const verifyToken = require('./middleware/verifyToken');
 
 const app = express();
@@ -27,5 +28,6 @@ app.use(verifyToken);
 
 app.use('/projects', projectRoutes);
 app.use('/users', userRoutes);
+app.use('/task', taskRoutes);
 
 module.exports = app;

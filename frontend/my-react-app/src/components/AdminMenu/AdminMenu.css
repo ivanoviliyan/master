@@ -1,0 +1,54 @@
+/* AdminMenu.css */
+.admin-menu {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  padding: 20px;
+  background-color: #03346E;
+  border-radius: 8px;
+  color: #E2E2B6;
+}
+
+h1 {
+  color: #E2E2B6;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th, .user-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.user-table th {
+  color: #E2E2B6;
+}
+
+.conter {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    padding: 0 20px; /* Add some padding around the container */
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .conter h1 {
+    padding-right: 45%;
+  }
+
+.search-box {
+    width: 25%; /* Set the width of the search box */
+    padding: 10px; /* Add padding inside the search box */
+    margin: 20px auto; /* Center horizontally with auto margins and add vertical spacing */
+    border: 1px solid #6EACDA; /* Border color */
+    border-radius: 15px; /* Rounded corners */
+    background-color: white; /* Background color */
+    font-size: 1em; /* Font size */
+  }
+  
+  
+  

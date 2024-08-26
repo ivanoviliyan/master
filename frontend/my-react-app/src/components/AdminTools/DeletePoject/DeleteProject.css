@@ -1,0 +1,36 @@
+.delete-project-page{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    margin: 2% auto;
+    background-color: #03346E;
+    border-radius: 15px;
+    color: #E2E2B6;
+    min-width: 400px;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.delete-project-page h1 {
+    text-align: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+#projectId, #confirmation {
+    width: 200px;
+}
+
+.nav {
+    padding-top: 20px;
+    margin-left: 2%;
+    margin-right: 2%;
+    display: flex;
+    justify-content: space-between;
+}

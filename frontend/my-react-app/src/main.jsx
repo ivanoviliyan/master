@@ -8,7 +8,11 @@ import Signup from './components/Singup/Singup';
 import Home from './components/Home/Home';
 import ProjectDetails from './components/ProjectDetails/ProjectDetails';
 import { Options } from "./components/Options/Options";
-import CreateProject from './components/CreateProject/CreateProject'
+import CreateProject from './components/AdminTools/CreateProject/CreateProject';
+import DeleteProject from './components/AdminTools/DeletePoject/DeleteProject';
+import AllProjects from './components/AdminTools/AllProjects/AllProjects';
+import AddTask from './components/AddTask/AddTask';
+import AdminMenu from './components/AdminMenu/AdminMenu';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +38,22 @@ const router = createBrowserRouter([
   {
     path: '/create-project',
     element: <CreateProject/>,
+  },
+  {
+    path: '/delele-project',
+    element: <DeleteProject/>
+  },
+  {
+    path: '/all-projects',
+    element: <AllProjects/>
+  },
+  {
+    path: '/add-task/:id',
+    element: <AddTask/>
+  },
+  {
+    path: '/admin-menu',
+    element: <AdminMenu/>
   }
 ]);
 

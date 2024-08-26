@@ -1,48 +1,86 @@
-.project-card{
+.project-card {
     background-color: #03346E;
     border-radius: 10px;
     padding: 10px 25px;
-    color:#6EACDA;
+    color: #6EACDA;
 }
 
-.colored{
-    color:#E2E2B6;
+.colored {
+    color: #E2E2B6;
     font-weight: bold;
 }
 
-.more-info{
+.more-info {
     display: flex;
     justify-content: space-between;
-    align-items:baseceline;
+    align-items: baseline; /* Fixed typo: align-items:baseceline; to baseline */
 }
 
-.more-info h2{
+.more-info h2 {
     padding-top: 15px;
 }
 
-.btn-details{
+.btn-details {
     background-color: #6EACDA;
     color: #021526;
     width: 100px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-details:hover {
+    background-color: #5a94b7;
 }
 
 .new-page-png img {
     width: 15px;
 }
 
-.team-members{
+.new-page-png {
+    display: flex;
+    gap: 10px;
+}
+
+.team-members {
     padding-top: 0;
     margin-top: 0;
     overflow-y: scroll;
     height: 150px;
 }
+
 .team-members p {
     color: #6EACDA;
 }
 
-.team-cont h4{
-    color:#FFC604;
+.team-cont h4 {
+    color: #FFC604;
+}
+
+.btn-copy-id {
+    background-color: #FFC604;
+    color: #03346E;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    width: 100px;
+}
+
+.btn-copy-id img {
+    width: 20px;
+}
+
+.btn-copy-id:hover {
+    background-color: #e0b404;
 }

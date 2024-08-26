@@ -20,22 +20,8 @@ const projectSchema = new mongoose.Schema({
         ref: 'User'
     }],
     history: [{
-        task: {
-            type: String,
-            enum: ['Scripting', 'Script Changes', 'Quality Assurance', 'Data checking', 'Field Work', 'Overlay'],
-        },
-        duration: {
-            start: {
-                type: Date,
-            },
-            end: {
-                type: Date,
-            }
-        },
-        taskAdder: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Task'
     }],
     startDate: {
         type: Date,
